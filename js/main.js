@@ -105,10 +105,6 @@ function insert_switch() {
             };
 
             var submitBtn = document.getElementsByName('Submit');
-            var test = submitBtn[0].getAttribute('onclick');
-            if (test) test = test + "return;";
-            else test = "return;";console.debug(test);
-            // submitBtn[0].setAttribute('onclick', "console.debug('HERE');");
             submitBtn[0].onclick = function() {
                 if (switchItem.getAttribute("status") == 'on') {
                     textarea[i].value = UBBCode;

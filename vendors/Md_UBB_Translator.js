@@ -37,7 +37,7 @@
 	var boldTag = ["[b]", "[/b]"];
 	var italicPattern = /(\*(.+?)\*)|(_(.+?)_)/g; // 斜体正则式
 	var italicTag = ["[i]", "[/i]"];
-	var withLinksPattern = /(!\[.*?\]\(.+?\))|(\[.*\]\(.+\))/g; // 行内有 URL 正则式
+	var withLinksPattern = /(!\[.*?\]\(.+?\))|(\[.*?\]\(.+?\))/g; // 行内有 URL 正则式
 	var picPattern = /!\[(.*?)\]\((.+?)\)/; // 图片、文件标签正则式
 	var linkPattern = /\[(.*?)\]\((.+?)\)/; // 链接标签正则式
 
@@ -87,7 +87,7 @@
 
 	function picHandler(note, url) {
 		if (url.match(/^https?:\/\//)) {
-			if (note == '0') return "[img=0]" + url + "[/img]\n";
+			if (note == '0' || note == ' ') return "[img=0]" + url + "[/img]\n";
 			else return "[img=1]" + url + "[/img]\n";
 		} else {
 			var type = url.match(/\.(.*)$/);
@@ -107,8 +107,9 @@
 			if (!url.match(urlHeaders)) url = "http://" + url;
 		}
 
-		if (!name) return "[url]" + url + "[/url]";
-		else return "[url=" + url + "]" + name + "[/url]";
+		if (!name) return url;
+		// if (!name) return "[u][url][color=blue]" + url + "[/color][/url][/u]";
+		else return "[url=" + url + "][color=blue][u]" + name + "[/u][/color][/url]";
 	}
 
 	/** public methods */
@@ -117,10 +118,16 @@
 		var UBBCode = "";
 
 		/** 预处理 */
+		// 空行转换
+		var rawCode = MdCode.replace(/^[ \t]*$/gm, "");
 		// 消除连续空行
-		var rawCode = MdCode.replace(/\n(\s*\n){2,}/g, "\n\n");
+		rawCode = rawCode.replace(/\n{3,}/g, "\n\n");
 		// 消除非代码行行首缩进
-		rawCode = rawCode.replace(/\n[ ]{0,3}(\S+.*?)\n/g, "\n$1\n");
+		rawCode = rawCode.replace(/^[ ]{0,3}(\S+.*?)\n/g, "$1\n");
+		rawCode = rawCode.replace(/\n[ ]{1,3}(\S+.*?)\n/g, "\n$1\n");
+		rawCode = rawCode.replace(/\n[ ]{1,3}(\S+.*?)\n/g, "\n$1\n");
+		rawCode = rawCode.replace(/\n[ ]{0,3}(\S+.*?)$/g, "\n$1");
+		rawCode = rawCode.replace(/^[ ]{0,3}(\S+.*?)$/g, "$1");
 
 		/** 分段处理 */
 		var codeArr = rawCode.split('\n');

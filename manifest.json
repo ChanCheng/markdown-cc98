@@ -3,13 +3,18 @@
     
     "name": "Markdown For CC98",
     "description": "CC98 Markdown 插件",
-    "version": "0.2.1",
+    "version": "0.2.3",
     
+    "icons": {
+        "16": "img/logo_16.png",
+        "48": "img/logo_48.png",
+        "128": "img/logo_128.png"
+    },
     "background": {
         "page": "pages/background.html"
     },
-    "options_page": "pages/options.html",
     "browser_action": {
+        "default_icon": "img/logo_19.png",
         "default_title": "Markdown For CC98"
     },
     "permissions": [
