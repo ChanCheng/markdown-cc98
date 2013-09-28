@@ -3,7 +3,7 @@
     
     "name": "Markdown For CC98",
     "description": "CC98 Markdown 插件",
-    "version": "0.1",
+    "version": "0.2.1",
     
     "background": {
         "page": "pages/background.html"

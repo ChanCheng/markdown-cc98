@@ -16,6 +16,7 @@ var settings = [
     "alwaysOn"
 ];
 var syncStorage = chrome.storage.sync;
+
 var previewFrame;
 var previewInnerFrame;
 var switchBar;
@@ -23,6 +24,8 @@ var onURL = chrome.extension.getURL("img/icon_on.png");
 var offURL = chrome.extension.getURL("img/icon_off.png");
 var previewOnURL = chrome.extension.getURL("img/previewIcon_on.png");
 var previewOffURL = chrome.extension.getURL("img/previewIcon_off.png");
+
+var UBBCode;
 
 /** 搜索输入框，在每个输入框上插入 Markdown 开关 */
 
@@ -33,6 +36,8 @@ function insert_switch() {
         for (var i = 0; i < textarea.length; i++) {
             switchBar = document.createElement("div");
             switchBar.setAttribute('class', 'MDBar');
+
+            UBBCode = textarea[i].value;
 
             var switchItem = document.createElement("img");
             switchItem.setAttribute('class', 'header');
@@ -90,8 +95,6 @@ function insert_switch() {
 
             textarea[i].parentNode.insertBefore(switchBar, textarea[i]);
             textarea[i].oninput = function(event) {
-                var UBBCode;
-
                 if (switchItem.getAttribute('status') == 'on') {
                     UBBCode = Md_UBB_Translator.Md2UBB(event.target.value);
                 } else if (switchItem.getAttribute('status') == 'off') {
@@ -101,6 +104,16 @@ function insert_switch() {
                 // console.log(UBBCode);
             };
 
+            var submitBtn = document.getElementsByName('Submit');
+            var test = submitBtn[0].getAttribute('onclick');
+            if (test) test = test + "return;";
+            else test = "return;";console.debug(test);
+            // submitBtn[0].setAttribute('onclick', "console.debug('HERE');");
+            submitBtn[0].onclick = function() {
+                if (switchItem.getAttribute("status") == 'on') {
+                    textarea[i].value = UBBCode;
+                }
+            }
             break; // 只 match 一个输入框
         }
     });
@@ -129,6 +142,8 @@ function insertPreview() {
     previewFrame.appendChild(previewInnerFrame);
     var cp = $("#copyright")[0];
     cp.parentNode.insertBefore(previewFrame, cp);
+
+    if (UBBCode != "") clientubb.searchubb("MdPreviewInnerFrame", 1, "tablebody2", UBBCode, previewInnerFrame, true, true, true, true);
 }
 
 function setPreview(item, mode) {
