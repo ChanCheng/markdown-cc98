@@ -1,0 +1,155 @@
+/**
+ * Name: Md_UBB_Translator.js
+ * URL: https://github.com/ChanCheng/markdown-cc98
+ * Author: ChanCheng
+ * License: MIT License
+ * Description: Convert Markdown to UBB or UBB to Markdown
+ * Version: 0.1
+ */
+
+(function(Md_UBB_Translator) {
+
+	/** private methods */
+	var emptyPattern = /^\s*$/;	// 空行正则式
+	var atxPattern = /^[ ]{0,3}(#{1,6})[ ]*(\S+?.*?)#*\s*$/; // 类 Atx 标题正则式
+	var setextPattern = /^[ ]{0,3}([-=]{2,})\s*$/; // 类 Setext 标题
+	var titleUBB = [
+		"[font=微软雅黑][size=6][b]", "[/b][/size][/font]\n",
+		"[font=微软雅黑][size=5][b]", "[/b][/size][/font]\n",
+		"[font=微软雅黑][size=4][b]", "[/b][/size][/font]\n",
+		"[font=微软雅黑][size=3][b]", "[/b][/size][/font]\n",
+		"[font=微软雅黑][size=2][b]", "[/b][/size][/font]\n",
+		"[font=微软雅黑][size=1][b]", "[/b][/size][/font]\n",
+	 ];
+	var divLinePattern = /^[ ]{0,3}([*_-]\s*){3,}([^*_-]*?)([*_-]*\s*)*$/; // 分割线
+	var divLength = 134;
+	var codePattern = /^([ ]{4,}|\t)+(.*)$/; // 代码
+	var codeTag = [ "[code=2]", "[/code]\n" ];
+	var newLinePattern = /(\s{2,}|\t+)$/; // 段内分行
+	var urlFixer = true;
+
+	/** public methods */
+
+	Md_UBB_Translator.Md2UBB = function(MdCode) {
+		var UBBCode = "";
+		var codeArr = MdCode.split("\n");
+
+		// 开头空行
+		var i = 0;
+		while(i < codeArr.length && emptyPattern.test(codeArr[i])) {
+			i++;
+		}
+
+		// 分段处理
+		while (true) {
+			var setextStyle = false;	// 当前行有没有可能是类 Setext 标题
+			var tmpUBBCode = "";		// 转换结果暂存
+
+			for (; i < codeArr.length && !emptyPattern.test(codeArr[i]); i++) {
+				// 类 Setext 标题
+				contentTest = codeArr[i].match(setextPattern);
+				if (contentTest && setextStyle) {
+					// 一阶标题
+					if (contentTest[1][0] == '=') {
+						tmpUBBCode = titleUBB[0] + codeArr[i - 1] + titleUBB[1];
+					}
+					// 二阶标题
+					else {
+						tmpUBBCode = titleUBB[2] + codeArr[i - 1] + titleUBB[3];
+					}
+					if (UBBCode.charAt(UBBCode.length - 1) != '\n') tmpUBBCode = '\n' + tmpUBBCode;
+
+					setextStyle = false;
+					continue;
+				}
+
+				// 消除连续空格
+				tmpUBBCode = tmpUBBCode.replace(/[ \t]+/g, " ");
+				UBBCode += tmpUBBCode;
+
+				// 类 Atx 标题
+				var contentTest = codeArr[i].match(atxPattern);
+				if (contentTest) {
+					var titleLev = contentTest[1];
+					var titleContent = contentTest[2];
+					tmpUBBCode = titleUBB[titleLev.length * 2 - 2] + titleContent + titleUBB[titleLev.length * 2 - 1];
+					if (UBBCode.charAt(UBBCode.length - 1) != '\n') tmpUBBCode = '\n' + tmpUBBCode;
+					
+					setextStyle = false;
+					continue;
+				}
+
+				// 分割线
+				contentTest = codeArr[i].match(divLinePattern);
+				if (contentTest) {
+					var str = "";
+
+					if (contentTest[2]) {
+						var cnt = Math.ceil((divLength - contentTest[2].length) / 2);
+						// 这个分割线还是对不很齐啊真受不了！
+						str = new Array(cnt).join('-');
+						str += contentTest[2];
+						var fullWidthCnt = contentTest[2].match(/[\u4e00-\u9fa5\u3040-\u30FF]/g);
+						if (fullWidthCnt) fullWidthCnt = fullWidthCnt.length;
+						else fullWidthCnt = 0;
+						fullWidthCnt = Math.ceil(fullWidthCnt * 3 / 4);
+						str += new Array(divLength - contentTest[2].length - cnt - fullWidthCnt).join('-');
+					}
+					else {
+						str = new Array(divLength).join('-');
+					}
+
+					tmpUBBCode = str + '\n';
+					if (UBBCode.charAt(UBBCode.length - 1) != '\n') tmpUBBCode = '\n' + tmpUBBCode;
+
+					setextStyle = true;
+					continue;
+				}
+
+				// 代码
+				contentTest = codeArr[i].match(codePattern);
+				if (contentTest) {
+					UBBCode += codeTag[0] + contentTest[2];
+					i++;
+					contentTest = codeArr[i].match(codePattern);
+					while(contentTest && i < codeArr.length && !emptyPattern.test(codeArr[i])) {
+						UBBCode += '\n' + contentTest[2];
+						i++;
+						contentTest = codeArr[i].match(codePattern);
+					}
+					i--;
+					UBBCode += codeTag[1] + '\n';
+			
+					setextStyle = false;
+					tmpUBBCode = "";
+					continue;
+				}
+
+				// 段内分行
+				contentTest = codeArr[i].match(newLinePattern);
+				if (contentTest) {
+					tmpUBBCode = codeArr[i] + '\n';
+					setextStyle = true;
+					continue;
+				}
+				
+				tmpUBBCode = codeArr[i];
+				setextStyle = true;
+			}
+			// 消除连续空格
+			tmpUBBCode.replace(/\s*/g, ' ');
+			UBBCode += tmpUBBCode;
+
+			// 空行处理
+			while (i < codeArr.length && emptyPattern.test(codeArr[i])) {
+				i++;
+			}
+			if (i == codeArr.length) break;
+			else UBBCode += '\n';
+
+		}
+		
+		return UBBCode;
+	};
+
+}(window.Md_UBB_Translator = window.Md_UBB_Translator || {}));

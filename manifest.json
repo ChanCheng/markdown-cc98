@@ -1,0 +1,27 @@
+{
+    "manifest_version": 2,
+    
+    "name": "Markdown For CC98",
+    "description": "CC98 Markdown 插件",
+    "version": "0.1",
+    
+    "background": {
+        "page": "pages/background.html"
+    },
+    "options_page": "pages/options.html",
+    "browser_action": {
+        "default_title": "Markdown For CC98"
+    },
+    "permissions": [
+        "storage",
+        "tabs",
+        "<all_urls>"
+    ],
+    "web_accessible_resources": [
+        "img/icon_on.png",
+        "img/icon_off.png",
+        "img/icon_focus.png",
+        "img/previewIcon_on.png",
+        "img/previewIcon_off.png"
+    ]
+}

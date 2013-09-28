@@ -1,0 +1,20 @@
+.header {
+	height: 30px;
+	width:  30px;
+	margin: 2px;
+	cursor: pointer;
+}
+
+.MDBar {
+	margin-left: 4px;
+}
+
+.MdPreviewFrame {
+	margin-left: 19px;
+	height: 500px;
+	width: 1200px;
+	border-style: dashed;
+	border-radius: 10px;
+	padding: 10px;
+	overflow: auto;
+}
