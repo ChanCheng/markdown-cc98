@@ -57,7 +57,7 @@
 		if (str.match(quotePattern)) return QUOTE; // 引用
 		if (str.match(/^([*_-]\s*){3,}/)) return DIVLINE; // 分割线
 		if (str.match(listHeadPattern)) return LIST; // 列表
-		if (str[0] == ' ') {
+		if (str.match(/^[ ]{4,}|\t/)) {
 			if (nowStatus == QUOTE || nowStatus == LIST) return nowStatus;
 			else return CODE; // 代码
 		}
@@ -112,6 +112,17 @@
 		else return "[url=" + url + "][color=blue][u]" + name + "[/u][/color][/url]";
 	}
 
+	/** 处理 ``` 标签 */
+
+	codeQuoteHandler = function() {
+		var content = arguments[1].match(/^(.*)$/gm);
+		var res = '\n';
+		for (var i = 0; i < content.length - 1; i++) {
+			res += "    " + content[i] + '\n';
+		}
+		return res;
+	}
+
 	/** public methods */
 
 	Md_UBB_Translator.Md2UBB = function(MdCode) {
@@ -119,15 +130,19 @@
 
 		/** 预处理 */
 		// 空行转换
-		var rawCode = MdCode.replace(/^[ \t]*$/gm, "");
+		// var rawCode = MdCode.replace(/^[ \t]*$/gm, "");
+
 		// 消除连续空行
-		rawCode = rawCode.replace(/\n{3,}/g, "\n\n");
+		var rawCode = MdCode.replace(/\n(\s*\n){2,}/g, "\n\n");
 		// 消除非代码行行首缩进
 		rawCode = rawCode.replace(/^[ ]{0,3}(\S+.*?)\n/g, "$1\n");
 		rawCode = rawCode.replace(/\n[ ]{1,3}(\S+.*?)\n/g, "\n$1\n");
 		rawCode = rawCode.replace(/\n[ ]{1,3}(\S+.*?)\n/g, "\n$1\n");
 		rawCode = rawCode.replace(/\n[ ]{0,3}(\S+.*?)$/g, "\n$1");
 		rawCode = rawCode.replace(/^[ ]{0,3}(\S+.*?)$/g, "$1");
+		rawCode = rawCode.replace(/^\s*?```\s*?\n((.*?\n)*?)\s*?```\s*?\n/g, codeQuoteHandler);
+		rawCode = rawCode.replace(/\n\s*?```\s*?\n((.*?\n)*?)\s*?```\s*?\n/g, codeQuoteHandler);
+		rawCode = rawCode.replace(/\n\s*?```\s*?\n((.*?\n)*?)\s*?```\s*?$/g, codeQuoteHandler);
 
 		/** 分段处理 */
 		var codeArr = rawCode.split('\n');
