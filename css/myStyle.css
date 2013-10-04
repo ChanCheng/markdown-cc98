@@ -18,3 +18,116 @@
 	padding: 10px;
 	overflow: auto;
 }
+
+#nav_list div div h4 a {
+	margin: 10px;
+	font-size: 25px;
+	font-family: "黑体";
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.setting_container {
+	padding: 20px;
+}
+
+.setting_table {
+	width: 100%;
+	margin-top: 5px;
+}
+
+.setting_table tr {
+	border-top: 1px solid #dddddd;
+}
+
+.setting_field {
+	padding: 10px;
+	font-size: 30px;
+	font-family: "微软雅黑";
+}
+
+.setting_customizedFont {
+	margin-left: 20px;
+	margin-right: 20px;
+	width: 150px;
+}
+
+.setting_fontStyleBar {
+	margin-top: 5px;
+	margin-bottom: 15px;
+}
+
+.setting_exampleContext, .setting_exampleLink, .setting_exampleInlineCode, .setting_exampleQuote {
+	padding: 10px;
+}
+
+.setting_exampleLinkSize {
+	color: black;
+}
+
+.setting_bold_label, .setting_italic_label {
+	cursor: pointer;
+}
+
+.setting_dropdown {
+	padding: 10px;
+	font-size:25px;
+	font-family: "微软雅黑";
+	cursor: pointer;
+}
+
+.setting_dropdown ul {
+	font-size:20px;
+	font-family: "微软雅黑";
+	cursor: pointer;
+}
+
+.setting_selector {
+	display: table;
+	width: auto;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.color_selector_group {
+	margin-left: 10px;
+}
+
+.color_selector {
+	width: 15px;
+	height: 15px;
+	cursor: pointer;
+}
+
+.setting_button {
+	margin-top: 50px;
+	margin-left: 50px;
+	margin-right: 20px;
+	margin-bottom: 50px;
+	padding: 10px;
+	font-size: 20px;
+	font-family: "微软雅黑";
+}
+
+footer #info {
+  margin-top: 25px;
+  word-spacing: 3px;
+  font-size: 20px;
+  font-style: bold;
+}
+
+footer #copyleft {
+  margin-top: 25px;
+  word-spacing: 3px;
+  font-size: 16.2px;
+  color: #999999;
+}
+
+footer #copyleft a {
+  color: #999999;
+}
+
+footer #copyleft #copyleft_symbol {
+  margin-right: 3px;
+}

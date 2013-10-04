@@ -8,6 +8,7 @@ function init() {
 
         if (url.indexOf(cc98) >= 0) {
             insert_switch();
+            Md_UBB_Translator.init();
         }
     });
 }

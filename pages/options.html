@@ -1,11 +1,560 @@
 <!DOCTYPE html>
 <html>
-    <head>
-    	<meta charset = "UTF-8">
-    	<title>Options Page</title>
-    </head>
+<head>
+	<meta charset = "UTF-8">
+	<title>Markdown-CC98 Options</title>
+	<!-- CSS -->
+	<link rel="stylesheet" href="../vendors/bootstrap-3.0.0/dist/css/bootstrap.css">
+	<link rel="stylesheet" href="../vendors/bootstrap-3.0.0/dist/css/bootstrap-theme.css">
+	<link rel="stylesheet" href="../css/myStyle.css"/>
+	<!-- JS -->
+	<script src="../vendors/bootstrap-3.0.0/assets/js/jquery.js"></script>
+	<script src="../vendors/bootstrap-3.0.0/dist/js/bootstrap.min.js"></script>
+	<script src="../vendors/bootstrap-3.0.0/js/transition.js"></script>
+	<!-- // <script src="../vendors/bootstrap-3.0.0/js/dropdown.js"></script>
+BUG!!!!?-->
+<script src="../vendors/bootstrap-3.0.0/js/collapse.js"></script>
+<script src="../js/options.js"></script>
+</head>
 
-    <body>
-    	<h1>This is the option page.</h1>
-    </body>
+<body>
+<div class="container">
+	<header class="jumbotron">
+		<table>
+			<tr>
+				<td>
+					<img src="../img/logo_64.png" style="float:left; margin-right: 20px"></td>
+				<td>
+					<h1>Markdown For CC98</h1>
+				</td>
+			</tr>
+		</table>
+		<br>
+		<p id="header_info">
+			可以在
+			<a href="http://www.cc98.org" target="_blank">CC98</a>
+			中使用简单的
+			<a href="http://zh.wikipedia.org/wiki/Markdown" target="_blank">Markdown</a>
+			编辑帖子
+		</p>
+	</header>
+	<div class="panel-group" id="nav_list">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					<a class="accordion-toggle" data-toggle="collapse" data-target="#settings">设置</a>
+				</h4>
+			</div>
+			<div id="settings" class="panel collapse in" style="height: auto;">
+				<div class="container setting_container">
+					<div class="labelBar" style="margin-left: 10px; margin-bottom: 15px; margin-top: 25px;">
+						<span class="label label-warning" style="font-size: 10px;">字体设置需要系统字体支持</span>
+					</div>
+					<table class="setting_table">
+						<tr>
+							<td class="col-lg-2">
+								<p class="setting_field">标题</p>
+							</td>
+							<td class="col-lg-5">
+								<div class="form-inline setting_selector">
+									<div class="form-group">
+										<div class="setting_dropdown dropdown">
+											<div class="dropdown-toggle" data-toggle="dropdown" id="chosenTitleFont">
+												微软雅黑
+												<span class="caret"></span>
+											</div>
+											<ul class="dropdown-menu font_menu" role="menu" field="Title">
+												<li>
+													<a>微软雅黑</a>
+												</li>
+												<li>
+													<a>黑体</a>
+												</li>
+												<li>
+													<a>宋体</a>
+												</li>
+												<li class="divider"></li>
+												<li>
+													<a>自定义</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<div class="form-group">
+										<input type="text" class="form-control" id="customizedTitleFont" placeholder="请输入字体名称" style="margin-left: 20px; display: none"></div>
+								</div>
+							</td>
+							<td class="col-lg-5">
+								<p class="setting_field setting_exampleTitle"> <b>标题 Title</b>
+								</p>
+							</td>
+						</tr>
+						<tr>
+							<td class="col-lg-2">
+								<p class="setting_field">正文</p>
+							</td>
+							<td class="col-lg-5">
+								<div class="form-inline setting_selector">
+									<div class="form-group">
+										<div class="setting_dropdown dropdown">
+											<div class="dropdown-toggle" data-toggle="dropdown" id="chosenContextFont">
+												宋体
+												<span class="caret"></span>
+											</div>
+											<ul class="dropdown-menu font_menu" role="menu" field="Context">
+												<li>
+													<a>微软雅黑</a>
+												</li>
+												<li>
+													<a>黑体</a>
+												</li>
+												<li>
+													<a>宋体</a>
+												</li>
+												<li class="divider"></li>
+												<li>
+													<a>自定义</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<div class="form-group">
+										<input type="text" class="form-control setting_customizedFont" id="customizedContextFont" placeholder="请输入字体名称" style="display: none;"></div>
+									<div class="form-group">
+										<div class="setting_selector">
+											<div class="setting_dropdown dropdown">
+												<div class="dropdown-toggle" data-toggle="dropdown" id="chosenContextSize">
+													1 号
+													<span class="caret"></span>
+												</div>
+												<ul class="dropdown-menu size_menu" role="menu" field="Context">
+													<li>
+														<a>1 号</a>
+													</li>
+													<li>
+														<a>2 号</a>
+													</li>
+													<li>
+														<a>3 号</a>
+													</li>
+													<li>
+														<a>4 号</a>
+													</li>
+													<li>
+														<a>5 号</a>
+													</li>
+													<li>
+														<a>6 号</a>
+													</li>
+													<li>
+														<a>7 号</a>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</td>
+							<td class="col-lg-5">
+								<div class="setting_exampleContextSize" style="font-size: 5px">
+									<p class="setting_exampleContext" style="font-family: 宋体">
+										这里是正文示例。
+										<br>Zheli Shi Zhengwen Shili.</p>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="col-lg-2">
+								<p class="setting_field">链接</p>
+							</td>
+							<td class="col-lg-5">
+								<div class="form-inline setting_selector">
+									<div class="form-group">
+										<div class="setting_dropdown dropdown">
+											<div class="dropdown-toggle" data-toggle="dropdown" id="chosenLinkFont">
+												宋体
+												<span class="caret"></span>
+											</div>
+											<ul class="dropdown-menu font_menu" role="menu" field="Link">
+												<li>
+													<a>微软雅黑</a>
+												</li>
+												<li>
+													<a>黑体</a>
+												</li>
+												<li>
+													<a>宋体</a>
+												</li>
+												<li class="divider"></li>
+												<li>
+													<a>自定义</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<div class="form-group">
+										<input type="text" class="form-control setting_customizedFont" id="customizedLinkFont" placeholder="请输入字体名称" style="display: none;"></div>
+									<div class="form-group">
+										<div class="setting_dropdown dropdown">
+											<div class="dropdown-toggle" data-toggle="dropdown" id="chosenLinkSize">
+												1 号
+												<span class="caret"></span>
+											</div>
+											<ul class="dropdown-menu size_menu" role="menu" field="Link">
+												<li>
+													<a>1 号</a>
+												</li>
+												<li>
+													<a>2 号</a>
+												</li>
+												<li>
+													<a>3 号</a>
+												</li>
+												<li>
+													<a>4 号</a>
+												</li>
+												<li>
+													<a>5 号</a>
+												</li>
+												<li>
+													<a>6 号</a>
+												</li>
+												<li>
+													<a>7 号</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="form-inline setting_selector setting_fontStyleBar">
+									<div class="form-group" field="Link">
+										<span class="label label-default setting_bold_label" style="font-size: 10px;" status="off">加粗</span>
+										<span class="label label-default setting_italic_label" style="font-size: 10px;" status="off">斜体</span>
+									</div>
+								</div>
+							</td>
+							<td class="col-lg-5">
+								<div class="setting_exampleLink" style="font-family: 宋体">
+									<a href="http://www.cc98.org" class="setting_exampleLinkSize" style="font-size: 5px">猜猜我会链到哪里？</a>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="col-lg-2">
+								<p class="setting_field">强调</p>
+							</td>
+							<td class="col-lg-5">
+								<div class="form-inline setting_selector">
+									<div class="form-group">
+										<div class="setting_dropdown dropdown">
+											<div class="dropdown-toggle" data-toggle="dropdown" id="chosenEmphasisFont">
+												宋体
+												<span class="caret"></span>
+											</div>
+											<ul class="dropdown-menu font_menu" role="menu" field="Emphasis">
+												<li>
+													<a>微软雅黑</a>
+												</li>
+												<li>
+													<a>黑体</a>
+												</li>
+												<li>
+													<a>宋体</a>
+												</li>
+												<li class="divider"></li>
+												<li>
+													<a>自定义</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<div class="form-group">
+										<input type="text" class="form-control setting_customizedFont" id="customizedEmphasisFont" placeholder="请输入字体名称" style="display: none;"></div>
+									<div class="form-group">
+										<div class="setting_dropdown dropdown">
+											<div class="dropdown-toggle" data-toggle="dropdown" id="chosenEmphasisSize">
+												1 号
+												<span class="caret"></span>
+											</div>
+											<ul class="dropdown-menu size_menu" role="menu" field="Emphasis">
+												<li>
+													<a>1 号</a>
+												</li>
+												<li>
+													<a>2 号</a>
+												</li>
+												<li>
+													<a>3 号</a>
+												</li>
+												<li>
+													<a>4 号</a>
+												</li>
+												<li>
+													<a>5 号</a>
+												</li>
+												<li>
+													<a>6 号</a>
+												</li>
+												<li>
+													<a>7 号</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="form-inline setting_selector setting_fontStyleBar">
+									<div class="form-group" field="Emphasis">
+										<span class="label label-default setting_bold_label" style="font-size: 10px;" status="off">加粗</span>
+										<span class="label label-default setting_italic_label" style="font-size: 10px;" status="off">斜体</span>
+									</div>
+									<div class="form-group form-inline color_selector_group" field="Emphasis">
+										<div class="color_selector form-group" style="background-color: #121212" name="#121212"></div>
+										<div class="color_selector form-group" style="background-color: #da2128" name="#da2128"></div>
+										<div class="color_selector form-group" style="background-color: #4169e1" name="#4169e1"></div>
+										<div class="color_selector form-group" style="background-color: #8369e1" name="#8369e1"></div>
+										<div class="color_selector form-group" style="background-color: #e900ff" name="#e900ff"></div>
+										<div class="color_selector form-group" style="background-color: #faf000" name="#faf000"></div>
+										<div class="color_selector form-group" style="background-color: #228B22" name="#228B22"></div>
+									</div>
+								</div>
+							</td>
+							<td class="col-lg-5">
+								<span>
+									<span class="setting_exampleContextSize" style="font-size: 5px">
+										<span class="setting_exampleContext" style="font-family: 宋体">ChanCheng</span>
+									</span>
+									<span class="setting_exampleEmphasisColor" style="color: #121212" name="#121212">
+										<span class="setting_exampleEmphasisSize" style="font-size: 5px">
+											<span class="setting_exampleEmphasis" style="font-family: 宋体">全宇宙</span>
+										</span>
+									</span>
+									<span class="setting_exampleContextSize" style="font-size: 5px">
+										<span class="setting_exampleContext" style="font-family: 宋体">最帅</span>
+									</span>
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="col-lg-2">
+								<p class="setting_field">行内代码</p>
+							</td>
+							<td class="col-lg-5">
+								<div class="form-inline setting_selector">
+									<div class="form-group">
+										<div class="setting_dropdown dropdown">
+											<div class="dropdown-toggle" data-toggle="dropdown" id="chosenInlineCodeFont">
+												宋体
+												<span class="caret"></span>
+											</div>
+											<ul class="dropdown-menu font_menu" role="menu" field="InlineCode">
+												<li>
+													<a>微软雅黑</a>
+												</li>
+												<li>
+													<a>黑体</a>
+												</li>
+												<li>
+													<a>宋体</a>
+												</li>
+												<li class="divider"></li>
+												<li>
+													<a>自定义</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<div class="form-group">
+										<input type="text" class="form-control setting_customizedFont" id="customizedInlineCodeFont" placeholder="请输入字体名称" style="display: none;"></div>
+									<div class="form-group">
+										<div class="setting_dropdown dropdown">
+											<div class="dropdown-toggle" data-toggle="dropdown" id="chosenInlineCodeSize">
+												1 号
+												<span class="caret"></span>
+											</div>
+											<ul class="dropdown-menu size_menu" role="menu" field="InlineCode">
+												<li>
+													<a>1 号</a>
+												</li>
+												<li>
+													<a>2 号</a>
+												</li>
+												<li>
+													<a>3 号</a>
+												</li>
+												<li>
+													<a>4 号</a>
+												</li>
+												<li>
+													<a>5 号</a>
+												</li>
+												<li>
+													<a>6 号</a>
+												</li>
+												<li>
+													<a>7 号</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="form-inline setting_selector setting_fontStyleBar">
+									<div class="form-group" field="InlineCode">
+										<span class="label label-default setting_bold_label" style="font-size: 10px;" status="off">加粗</span>
+										<span class="label label-default setting_italic_label" style="font-size: 10px;" status="off">斜体</span>
+									</div>
+									<div class="form-group form-inline color_selector_group" field="InlineCode">
+										<div class="color_selector form-group" style="background-color: #121212" name="#121212"></div>
+										<div class="color_selector form-group" style="background-color: #da2128" name="#da2128"></div>
+										<div class="color_selector form-group" style="background-color: #4169e1" name="#4169e1"></div>
+										<div class="color_selector form-group" style="background-color: #8369e1" name="#8369e1"></div>
+										<div class="color_selector form-group" style="background-color: #e900ff" name="#e900ff"></div>
+										<div class="color_selector form-group" style="background-color: #faf000" name="#faf000"></div>
+										<div class="color_selector form-group" style="background-color: #228B22" name="#228B22"></div>
+									</div>
+								</div>
+							</td>
+							<td class="col-lg-5">
+								<span class="setting_exampleInlineCodeColor" style="color: #121212" name="#121212">
+									<div class="setting_exampleInlineCodeSize" style="font-size: 5px">
+										<p class="setting_exampleInlineCode" style="font-family: 宋体">
+											printf("Keyboard not found. Press F1 to continue.\n");
+										</p>
+									</div>
+								</span>
+							</td>
+						</tr>
+						<tr style="border-bottom: 1px solid #dddddd">
+							<td class="col-lg-2">
+								<p class="setting_field">引用</p>
+							</td>
+							<td class="col-lg-5">
+								<div class="form-inline setting_selector">
+									<div class="form-group">
+										<div class="setting_dropdown dropdown">
+											<div class="dropdown-toggle" data-toggle="dropdown" id="chosenQuoteFont">
+												宋体
+												<span class="caret"></span>
+											</div>
+											<ul class="dropdown-menu font_menu" role="menu" field="Quote">
+												<li>
+													<a>微软雅黑</a>
+												</li>
+												<li>
+													<a>黑体</a>
+												</li>
+												<li>
+													<a>宋体</a>
+												</li>
+												<li class="divider"></li>
+												<li>
+													<a>自定义</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<div class="form-group">
+										<input type="text" class="form-control setting_customizedFont" id="customizedQuoteFont" placeholder="请输入字体名称" style="display: none;"></div>
+									<div class="form-group">
+										<div class="setting_dropdown dropdown">
+											<div class="dropdown-toggle" data-toggle="dropdown" id="chosenQuoteSize">
+												1 号
+												<span class="caret"></span>
+											</div>
+											<ul class="dropdown-menu size_menu" role="menu" field="Quote">
+												<li>
+													<a>1 号</a>
+												</li>
+												<li>
+													<a>2 号</a>
+												</li>
+												<li>
+													<a>3 号</a>
+												</li>
+												<li>
+													<a>4 号</a>
+												</li>
+												<li>
+													<a>5 号</a>
+												</li>
+												<li>
+													<a>6 号</a>
+												</li>
+												<li>
+													<a>7 号</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="form-inline setting_selector setting_fontStyleBar">
+									<div class="form-group" field="Quote">
+										<span class="label label-default setting_bold_label" style="font-size: 10px;" status="off">加粗</span>
+										<span class="label label-default setting_italic_label" style="font-size: 10px;" status="off">斜体</span>
+									</div>
+									<div class="form-group form-inline color_selector_group" field="Quote">
+										<div class="color_selector form-group" style="background-color: #121212" name="#121212"></div>
+										<div class="color_selector form-group" style="background-color: #da2128" name="#da2128"></div>
+										<div class="color_selector form-group" style="background-color: #4169e1" name="#4169e1"></div>
+										<div class="color_selector form-group" style="background-color: #8369e1" name="#8369e1"></div>
+										<div class="color_selector form-group" style="background-color: #e900ff" name="#e900ff"></div>
+										<div class="color_selector form-group" style="background-color: #faf000" name="#faf000"></div>
+										<div class="color_selector form-group" style="background-color: #228B22" name="#228B22"></div>
+									</div>
+								</div>
+							</td>
+							<td class="col-lg-5">
+								<div class="quote" style="background-color: #e4e8ef; border: 1px #6595D6 solid">
+									<span class="setting_exampleQuoteColor" style="color: #121212" name="#121212">
+										<div class="setting_exampleQuoteSize" style="font-size: 5px">
+											<p class="setting_exampleQuote" style="font-family: 宋体">
+												帅有个屁用！到头来还不是被卒吃掉！
+												<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												——长得丑的人如是说</p>
+										</div>
+									</span>
+								</div>
+							</td>
+						</tr>
+					</table>
+					<div class="labelBar" style="margin-left: 10px; margin-bottom: 15px; margin-top: 15px">
+						<span class="label label-warning" style="font-size: 10px;">字体设置需要系统字体支持</span>
+					</div>
+					<div class="setting_selector">
+						<button type="button" class="btn btn-success setting_button" id="setting_save_btn">保存设置</button>
+						<span class="label label-nothing" id="save_result" style="padding:5px; font-size:15px; font-family:微软雅黑">我记住了！</span>
+						<button type="button" class="btn btn-danger setting_button" id="setting_reset_btn">恢复默认设置</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default" style="display:none;">
+			<div class="panel-heading">
+				<a class="accordion-toggle" data-toggle="collapse" data-target="#lab">实验室</a>
+			</div>
+			<div id="lab" class="panel collapse in" style="height: auto;">
+				<div class="panel-body" id="testingLab">
+					<h1>This is LAB.</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+	<footer>
+		<div class="row">
+			<div class="col-lg-8">
+				<p id="info">
+					Fork me on
+					<a href="https://github.com/ChanCheng/markdown-cc98" target="_blank">Github</a>
+				</p>
+				<p id="copyleft">
+					<a href="http://zh.wikipedia.org/wiki/Copyleft" target="_blank">Copyleft</a>
+					<span id="copyleft_symbol" style="-webkit-transform: rotate(180deg); -moz-transform: rotate(180deg); -o-transform: rotate(180deg); -khtml-transform: rotate(180deg); -ms-transform: rotate(180deg); transform: rotate(180deg); display: inline-block;">©</span>
+					<span>2013</span>
+					ChanCheng
+				</p>
+			</div>
+		</div>
+	</footer>
+</div>
+</body>
 </html>
